@@ -1,0 +1,24 @@
+---
+title: "Biden Polling"
+format: html
+author: "Surya Fraser"
+execute: 
+  echo: false
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(broom)
+poll_data <- tibble(biden = as.factor(c(rep("Yes", 655), 
+                                        rep("No", 904)))) |> 
+                slice_sample(prop = 1)
+```
+
+$$
+\log\left( \frac{\mathbb{P}(Y = 1 \mid X_1, X_2, \ldots, X_p)}{\mathbb{P}(Y = 0 \mid X_1, X_2, \ldots, X_p)} \right)
+= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p
+$$
+
+After winning the 2020 eclection against Trump, President Biden faced off against Trump again in the 2024 election. A poll was taken to see if voters would choose Biden at the moment and will be used to andwer the question "what proportion of all votes will be cast for Joe Biden?" One potential weakness in this model is that public sentiments are constantly changing, so the assumption of stability may not hold.
