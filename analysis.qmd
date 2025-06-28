@@ -11,6 +11,7 @@ execute:
 library(tidyverse)
 library(tidymodels)
 library(broom)
+
 poll_data <- tibble(biden = as.factor(c(rep("Yes", 655), 
                                         rep("No", 904)))) |> 
                 slice_sample(prop = 1)
@@ -21,4 +22,35 @@ $$
 = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p
 $$
 
-After winning the 2020 eclection against Trump, President Biden faced off against Trump again in the 2024 election. A poll was taken to see if voters would choose Biden at the moment and will be used to andwer the question "what proportion of all votes will be cast for Joe Biden?" One potential weakness in this model is that public sentiments are constantly changing, so the assumption of stability may not hold.
+```{tex}
+#| cache: true
+$$
+\widehat{p} = \frac{1}{1 + e^{-(-0.32)}} \approx 0.42
+$$->fit_biden
+```
+
+```{r}
+
+# Create the tibble
+model_summary <- tibble(
+  term = "(Intercept)",
+  estimate = -0.3221941
+)
+
+# Create a nice-looking table
+model_summary %>%
+  gt() %>%
+  tab_header(
+    title = "Model Coefficients"
+  ) %>%
+  fmt_number(
+    columns = estimate,
+    decimals = 3
+  ) %>%
+  cols_label(
+    term = "Term",
+    estimate = "Estimate"
+  )
+```
+
+After winning the 2020 eclection against Trump, President Biden faced off against Trump again in the 2024 election. A poll was taken to see if voters would choose Biden at the moment and will be used to andwer the question "what proportion of all votes will be cast for Joe Biden?" One potential weakness in this model is that public sentiments are constantly changing, so the assumption of stability may not hold. I model voter's decision on whether or not to vote for Biden as a function with no predictors. 
